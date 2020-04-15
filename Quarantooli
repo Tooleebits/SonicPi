@@ -1,0 +1,69 @@
+# This is Quarantooli by Toolee Bits, enjoy exploring the different layers of this tune
+use_bpm 60
+
+live_loop :beat do
+  sample :bd_808, amp: 0
+  #play chord(:c3, :sus4), attack: 1, release: 3, pitch: 25, amp: 0.2
+  #play chord(:c2, :sus4), attack: 0.9, release: 4, pitch: 15, amp: 0.2
+  sleep 1
+end
+
+
+live_loop :beat_1, sync: :beat do
+  with_fx :bitcrusher, mix: 0.3, cutoff: 130 do
+    sample :bd_haus, amp: 1
+    sleep 0.250
+    sample :drum_cymbal_closed, amp: 0.7, rate: 0.7, lpf: 120
+    sleep 0.250
+  end
+end
+
+live_loop :beat_2, sync: :beat do
+  with_fx :bitcrusher, mix: 0.5, cutoff: 50, amp: 1 do
+    sample :tabla_tun1 , amp: 0.3, lpf: 100
+    sleep 0.5
+    sample :bd_haus, amp: 0.8
+    sample :elec_hi_snare, rate: 0.9, lpf: 130
+    sleep 0.5
+  end
+end
+
+live_loop :synth, sync: :beat do
+  with_fx :echo, mix: 0.3, amp: 0.6 do # amp: 0.6
+    use_synth :dpulse
+    play chord(:c3, :sus4), attack: 0.9, release: 4, pitch: 15
+    play chord(:c2, :sus4), attack: 0.9, release: 1.5, pitch: 15
+    sleep 4
+    play chord(:f3, :sus4), attack: 0.9, release: 4, pitch: 15
+    play chord(:f2, :sus4), attack: 0.9, release: 1.5, pitch: 15
+    sleep 4
+    play chord(:g3, :sus4), attack: 0.9, release: 4, pitch: 15
+    play chord(:g2, :sus4), attack: 0.9, release: 1.5, pitch: 15
+    sleep 4
+    play chord(:g4, :sus4), attack: 0.9, release: 4, pitch: 15
+    play chord(:g2, :sus4), attack: 0.9, release: 1.5, pitch: 15
+    sleep 4
+  end
+end
+
+live_loop :synth_2, sync: :beat do
+  with_fx :echo, mix: 0.3, amp: 0.5 do # amp: 0.5
+    use_synth :dtri
+    play chord(:c3, :sus4).tick, release: 0.4, pitch: 20
+    sleep 0.250
+    play chord(:f3, :sus4).tick, release: 0.4, pitch: 20
+    sleep 0.250
+    play chord(:g3, :sus4).tick, release: 0.4, pitch: 20
+    sleep 0.250
+    play chord(:g2, :sus4).tick, release: 0.4, pitch: 20
+    sleep 0.250
+  end
+end
+
+live_loop :synth_3, sync: :beat_1 do
+  with_fx :echo, mix: 0.5, amp: 0.4 do # amp: 0.4
+    use_synth :dsaw
+    play chord(:c3, :sus4).mirror.tick, release: 0.2, pitch: 15
+    sleep 0.25
+  end
+end
