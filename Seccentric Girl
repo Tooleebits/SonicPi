@@ -1,0 +1,70 @@
+#This is Seccentric Girl by Toolee Bits
+
+#Eb, Gm, Cm
+
+use_bpm 90
+
+live_loop :beat_lead do
+  with_fx :reverb, mix: 0.6, room: 0.3, amp: 1 do
+    sample :bd_klub, amp: 1.2, release: 3
+    sleep 0.5
+    sample :bd_tek, amp: 0.7, release: 3
+    sample :bd_zum, amp: 1, rate: 1.5
+    sleep 0.5
+    sample :elec_hi_snare , rate: 2
+    sleep 0.5
+    sample :bd_klub, amp: 0.8, release: 3
+    sleep 0.25
+    sample :elec_fuzz_tom, amp: 0.8, release: 3
+    sample :elec_snare, amp: 1, rate: 1.5
+    sleep 0.75
+    sample :elec_hi_snare, rate: 2, release: 3
+    sleep 1.5
+  end
+end
+
+live_loop :beat_tabla, sync: :beat_lead do
+  with_fx :reverb, mix: 0.5 , damp: 1, room: 0.5 do
+    sample :tabla_te1, amp: 0.4
+    sleep 0.250
+    sample :tabla_te2, amp: 0.8
+    sleep 0.250
+  end
+end
+
+live_loop :synth_chords, sync: :beat_lead do
+  with_fx :reverb, mix: 0.9, amp: 0.7 do #amp 0.7
+    use_synth :growl
+    play chord(:Eb3, :major7), attack: 0.7, release: 4, pitch: 15
+    play chord(:Eb2, :major7), attack: 0.9, release: 4, pitch: 15
+    sleep 4
+    play chord(:G3, :minor7), attack: 0.7, release: 4, pitch: 15
+    play chord(:G2, :minor7), attack: 0.9, release: 4, pitch: 15
+    sleep 4
+    play chord(:C3, :minor7), attack: 0.7, release: 8, pitch: 15
+    play chord(:C2, :minor7), attack: 0.9, release: 8, pitch: 15
+    sleep 8
+  end
+end
+
+
+live_loop :synth_lead, sync: :synth_chords do
+  with_fx :reverb, mix: 0.7, amp: 0.5 do
+    use_synth :pulse
+    play chord(:g3, :minor7, num_octaves: 2).mirror.tick, release: 4, pitch: 15, attack: 0.8
+    sleep 4 #first 4 then 2 then 0.25
+  end
+end
+
+live_loop :synth_lead_2, sync: :synth_chords do
+  with_fx :echo, mix: 0.7, amp: 0.6 do #amp: 0.6
+    with_fx :reverb, mix: 0.4 do
+      use_synth :fm
+      use_random_seed 20 #20,40
+      16.times do
+        play chord(:g3, :minor7, num_octaves: 2).mirror.choose, release: 0.4, pitch: 15
+        sleep 0.25
+      end
+    end
+  end
+end
